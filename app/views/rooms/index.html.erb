@@ -1,0 +1,17 @@
+<%= link_to "Add Room", new_room_path, class: "btn btn-default btn-block" %>
+<div class="panel panel-default">
+  <table class="table table-striped table-bordered table-hover table-condense">
+		<tr>
+			<th>Room ID</th>
+			<th>Room Number</th>
+			<th>Book Room</th>
+		</tr>
+		<% @rooms.each  do |room|%>
+			<tr>
+				<td><%= room.id %></td>
+				<td><%= room.room_number %></td>
+				<td><%= link_to "Book", new_booking_path(room_number: "#{room.room_number}"), class: "btn btn-default" %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>

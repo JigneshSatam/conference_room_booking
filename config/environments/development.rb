@@ -32,6 +32,13 @@ Rails.application.configure do
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
 
+  # Compress JavaScripts and CSS.
+  config.assets.js_compressor = :uglifier
+  config.assets.css_compressor = :sass
+  config.assets.css_compressor = :yui
+
+  config.assets.digest = false
+  
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

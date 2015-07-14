@@ -1,0 +1,22 @@
+<h4>Booking of Room Nummber <%= params[:room_number] %></h4>
+<%= form_for @booking, url: {action: 'create'}, role: "form" do |f| %>
+	<%= f.fields_for :timeslots do |timeslot| %>
+		<div class="form-group">
+			<%= timeslot.label :booking_date %>
+			<%= timeslot.text_field :booking_date,id: "booking_date" %>
+		</div>
+	<% end %>
+	<%= f.fields_for :users do |user| %>
+		<div class="form-group">
+			<%= user.label :email_id, "Regerterd email_id" %>
+			<%= user.text_field :email_id %>
+		</div>
+	<% end %>
+	<%=  f.submit "Create", class: "btn btn-default" %>
+<% end %>
+
+<script>
+	$('#booking_date').datetimepicker({
+    format: 'yyyy-mm-dd hh:ii'
+	});
+</script>

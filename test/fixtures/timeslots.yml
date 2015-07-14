@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  booking_date: 2015-07-14
+  start_time: 2015-07-14 10:20:34
+  end_time: 2015-07-14 10:20:34
+
+two:
+  booking_date: 2015-07-14
+  start_time: 2015-07-14 10:20:34
+  end_time: 2015-07-14 10:20:34
