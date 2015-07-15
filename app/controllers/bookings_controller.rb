@@ -1,10 +1,11 @@
 class BookingsController < ApplicationController
   def new
-    @booking = Booking.new
-  end
-
-  def index
-    @bookings = Booking.all
+    @booking  = Booking.new
+    @room     = Room.where(room_number: params[:room_number]).first
+    @bookings = @room.bookings
+      .joins(:timeslot)
+      .where(timeslots: {booking_date: Date.today})
+      .order("timeslots.start_time")
   end
 
   def edit
@@ -16,13 +17,15 @@ class BookingsController < ApplicationController
   def create
     user     = User.where(user_params).first
     timeslot = Timeslot.new(timeslot_params)
-    room     = Room.where(room_params).first
+    room     = Room.where(room_params).first 
     if check_availability(room, timeslot) && timeslot.save
-      debugger
-      booking  = Booking.create(user: user, timeslot_id: timeslot.id, room: room)
+      booking  = Booking.create(user: user, timeslot: timeslot, room: room)
       flash[:notice] = "Room Booked"
+      redirect_to rooms_path
+    else
+      flash[:notice] = "Sorry! Please select proper time slot to book the room"
+      redirect_to new_booking_path(room_number: "#{room.room_number}")
     end
-    redirect_to rooms_path
   end
 
   def update
@@ -32,19 +35,14 @@ class BookingsController < ApplicationController
   end
 
   private
-    def booking_params
-      # params.require(:booking).permit(:name)
-      # params.require(:booking).require(:users).premit(:name)
-    end
-
     def check_availability(room, timeslot)
       (timeslot.start_time > timeslot.end_time) && (return false)
-      timeslots = Timeslot.where("booking_date == (?) AND 
-        (start_time BETWEEN (?) AND (?) OR end_time BETWEEN (?) AND (?))",
-        timeslot.booking_date, 
-        timeslot.start_time, timeslot.end_time, 
-        timeslot.start_time, timeslot.end_time)
-      debugger
+      timeslots = Timeslot.where(booking_date: timeslot.booking_date)
+        .where("(start_time >= :start_time AND start_time < :end_time) OR
+          (end_time > :start_time AND end_time <= :end_time) OR
+          (start_time <= :start_time AND end_time >= :end_time)",
+          { start_time: timeslot.start_time,
+          end_time: timeslot.end_time })
       timeslots.blank?
     end
 

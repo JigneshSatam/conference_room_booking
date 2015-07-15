@@ -12,6 +12,14 @@
 <body>
 	<nav class="navbar navbar-default">
 	  <div class="container-fluid">
+    	<% flash.each do |name, msg| %>
+    		<% if msg.is_a?(String) %>
+			    <div class="alert alert-<%= name.to_s == 'notice' ? 'success' : 'danger' %>">
+			      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+			      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+			    </div>
+			  <% end %>
+			<% end %>
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
 	      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
