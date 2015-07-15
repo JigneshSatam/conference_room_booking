@@ -1,5 +1,3 @@
-$(document).ready({
-	$('#booking_date').click({
-		alert("Hii");
-	});
+$(document).ready(function(){
+	$('#booking_date').datepicker();
 });

@@ -12,9 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require jquery-1.11.3.min
 //= require bootstrap.min
-//= require moment
+//= require moment.min
 //= require bootstrap-datetimepicker.min
 //= require costom
 //= require_tree .
