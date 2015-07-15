@@ -1,9 +1,16 @@
 <h4>Booking of Room Nummber <%= params[:room_number] %></h4>
 <%= form_for @booking, url: {action: 'create'}, role: "form" do |f| %>
+	<%= f.fields_for :rooms do |room| %>
+		<% room.hidden_field :room_number, value: "#{params[:room_number]}" %>
+	<% end %>
 	<%= f.fields_for :timeslots do |timeslot| %>
 		<div class="form-group">
 			<%= timeslot.label :booking_date %>
 			<%= timeslot.text_field :booking_date,id: "booking_date" %>
+			<%= timeslot.label :start_time %>
+			<%= timeslot.text_field :start_time, id: "start_time", class: "time" %>
+			<%= timeslot.label :end_time %>
+			<%= timeslot.text_field :end_time, id: "end_time", class: "time" %>
 		</div>
 	<% end %>
 	<%= f.fields_for :users do |user| %>

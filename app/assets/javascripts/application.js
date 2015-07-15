@@ -15,5 +15,6 @@
 //= require bootstrap.min
 //= require moment.min
 //= require bootstrap-datetimepicker.min
+//= require jquery.timepicker.min
 //= require costom
 //= require_tree .

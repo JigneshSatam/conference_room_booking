@@ -14,6 +14,7 @@
  *= require bootstrap.min
  *= require bootstrap-theme
  *= require bootstrap-datetimepicker.min
+ *= require jquery.timepicker
  *= require_tree .
  *= require_self
  */
